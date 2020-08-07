@@ -1,10 +1,12 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-extern "C" __attribute__((visibility("default"))) __attribute__((used))
-int native_add(int x, int y) {
+extern "C"
+{
+  __attribute__((visibility("default"))) __attribute__((used)) int native_add(int x, int y)
+  {
     return x + y +200;
-}
+  }
 
 char *reverse(char *str, int length)
 {
@@ -1193,3 +1195,4 @@ aes_ccm_verify(const unsigned char *key, const unsigned char *nonce,
   return 1;
 }
 /*---------------------------------------------------------------------------*/
+}
