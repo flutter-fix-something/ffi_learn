@@ -1,0 +1,3 @@
+/Users/majialun/Desktop/dart-ffi/native_add/android/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir
+/Users/majialun/Desktop/dart-ffi/native_add/android/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir
+/Users/majialun/Desktop/dart-ffi/native_add/android/.cxx/cmake/debug/x86/CMakeFiles/native_add.dir
