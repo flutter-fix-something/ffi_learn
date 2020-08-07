@@ -8,6 +8,16 @@ extern "C"
     return x + y +200;
   }
 
+
+uint8_t* u8List_trans(uint8_t* u8List,int length){
+  for (size_t i = 0; i < length; i++)
+  {
+    u8List[i] = i % 8;
+  }
+
+  return u8List;
+}
+
 char *reverse(char *str, int length)
 {
     char *reversed_str = (char *)malloc((length + 1) * sizeof(char));

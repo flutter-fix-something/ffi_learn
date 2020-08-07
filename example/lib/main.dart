@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -77,6 +79,17 @@ class _MyAppState extends State<MyApp> {
                   print(res);
                 },
                 child: Text('nativeAdd2'),
+              ),
+              FlatButton(
+                color: Colors.orange,
+                onPressed: () {
+                  final src = Uint8List.fromList(List.filled(20, 3));
+                  print('src = $src');
+                  final pointer = transU8List(Uint8Utils.toPointer(src), 20);
+                  final result = Uint8Utils.toUint8List(pointer, 20);
+                  print('handle src result : $result');
+                },
+                child: Text('trans'),
               ),
             ],
           ),

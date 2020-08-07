@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'dart:ffi'; // For FFI
 import 'dart:io'; // For Platform.isX
-import 'package:ffi/ffi.dart' show Utf8;
+import 'package:ffi/ffi.dart' show Utf8, allocate;
 
 final DynamicLibrary nativeAddLib = Platform.isAndroid
     ? DynamicLibrary.open("libnative_add.so")
@@ -22,6 +23,29 @@ final AddFunc nativeAdd = nativeAddLib
 // 找不到方法
 final AddFunc2 nativeAdd2 =
     nativeAddLib.lookup<NativeFunction<NativeAddFunc2>>("reverse").asFunction();
+
+typedef U8ListTrans = Pointer<Uint8> Function(Pointer<Uint8>, Int32);
+typedef TransFunc = Pointer<Uint8> Function(Pointer<Uint8>, int);
+
+final TransFunc transU8List = nativeAddLib
+    .lookup<NativeFunction<U8ListTrans>>('u8List_trans')
+    .asFunction();
+
+class Uint8Utils extends Struct {
+  static Pointer<Uint8> toPointer(Uint8List uint8list) {
+    final Pointer<Uint8> result = allocate<Uint8>(count: uint8list.length);
+    final Uint8List buffer = result.asTypedList(uint8list.length + 1);
+    for (var i = 0; i < uint8list.length; i++) {
+      buffer[i] = uint8list[i];
+    }
+    return result;
+  }
+
+  static Uint8List toUint8List(Pointer<Uint8> pointer, int length) {
+    final buffer = pointer.asTypedList(length);
+    return Uint8List.fromList(buffer);
+  }
+}
 
 typedef EncryptFunc = int Function(
   Pointer<Utf8> key,
